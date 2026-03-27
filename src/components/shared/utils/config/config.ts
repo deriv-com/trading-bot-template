@@ -245,7 +245,7 @@ export const generateOAuthURL = async (prompt?: string) => {
             const protocol = window.location.protocol;
             const host = window.location.host;
             const redirectUrl = `${protocol}//${host}`;
-            const scopes = 'trade%20account_manage';
+            const scopes = 'trade';
 
             // Build OAuth URL with PKCE parameters
             // - state: CSRF token for security
