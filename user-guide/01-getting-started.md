@@ -130,9 +130,12 @@ Visit `https://localhost:8443` to see your platform running.
 
 Login does not work out of the box — Deriv needs to know about your domain before it will accept the redirect.
 
-1. Register an OAuth application with Deriv for your redirect URI. For local development this is `https://localhost:8443/`; for production it is your deployed domain (e.g., `https://bot.yourbrand.com/`).
+1. Register an OAuth application at [developers.deriv.com](https://developers.deriv.com/) for your redirect URI. For local development this is `https://localhost:8443/`; for production it is your deployed domain (e.g., `https://your-fork.vercel.app/` or `https://bot.yourbrand.com/`).
 2. Copy the client ID Deriv issues you.
-3. Set it as `CLIENT_ID` in `.env` for local development, and in your deployment environment's secrets for staging/production.
+3. Set it as `CLIENT_ID` in `.env` for local development, and in your deployment environment's secrets (e.g., Vercel → Project Settings → Environment Variables) for staging/production.
+4. Also set `platform.hostname.production.com` in `brand.config.json` to the same hostname you registered (no protocol, no trailing slash). The code uses this value to decide whether to connect to the production or staging WebSocket — if it doesn't match your deployed hostname, the app will silently run against staging in production.
+
+> **Practical tip:** For a brand-new deploy you usually need to ship once to get a stable hostname *before* you can register with Deriv. See [Deployment — Example: deploying to Vercel](../README.md#example-deploying-to-vercel) for one concrete order of operations; the same shape applies to other static hosts.
 
 > Do not change the `platform.auth2_url` values in `brand.config.json` — they must stay pointed at Deriv's OAuth server. See [Authentication](./04-authentication.md) and [Changelog — Configuration Constraints](./08-changelog.md#configuration-constraints).
 

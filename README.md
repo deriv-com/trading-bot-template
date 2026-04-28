@@ -153,8 +153,22 @@ Any static host will work — the build output in `dist/` is a plain SPA.
 
 1. Run `npm run build` and ship the `dist/` directory.
 2. Register a Deriv OAuth client for your deployed domain and set `CLIENT_ID` in your host's environment variables.
-3. Set `platform.hostname.production` in `brand.config.json` to your deployed domain so environment detection picks the right config.
+3. Set `platform.hostname.production.com` in `brand.config.json` to your deployed hostname (no protocol, no trailing slash) so `isProduction()` detects the right environment and connects to the production WebSocket. The hostname you put here must match the redirect URI you register with Deriv.
 4. Make sure your host serves `index.html` for unknown routes (SPA fallback) — OAuth redirects back to `/?code=...&state=...` and the `App` component handles the callback inline.
+
+### Example: deploying to Vercel
+
+This is one concrete path that works — any static host (Netlify, Cloudflare Pages, S3+CloudFront, your own infra) will do, but the shape of the steps is the same. Adapt as needed for your host.
+
+1. **Fork & clone** — fork this repo to your GitHub org (e.g. `your-org/your-fork`) and clone locally.
+2. **Configure locally** — edit `brand.config.json` (brand, colors, logo, and especially `platform.hostname.production.com` → the domain you'll deploy to), run `npm install` then `npm run generate:brand-css`, commit, push.
+3. **Create a Vercel project** — import your GitHub repo. **Override the Output Directory to `dist`** (Vercel's default is wrong for RSBuild). Framework preset can be left as "Other"; Vercel picks up `npm run build` automatically.
+4. **Deploy once** — let Vercel do the first deploy so you have a stable domain (e.g. `your-fork.vercel.app` or your custom domain). Login won't work yet.
+5. **Register the OAuth app with Deriv** — at [developers.deriv.com](https://developers.deriv.com/), register a new app using your deployed domain as the redirect URI (`https://your-fork.vercel.app/`), copy the **Client ID** Deriv issues.
+6. **Add env vars on Vercel** — in Project Settings → Environment Variables, add `CLIENT_ID=<the_id_from_deriv>`. Add any optional ones (`APP_ID`, Google Drive, monitoring) here too.
+7. **Redeploy** — env vars are injected at build time, so push a commit or click "Redeploy" in Vercel. Login now works.
+
+On other hosts the equivalents are: set the output/publish directory to `dist`, deploy once to get a stable URL, register that URL with Deriv, add `CLIENT_ID` to the host's environment variables, trigger a rebuild.
 
 ---
 
