@@ -1,5 +1,8 @@
+import { TextDecoder, TextEncoder } from 'util';
 import '@testing-library/jest-dom/jest-globals';
 import '@testing-library/jest-dom';
+
+Object.assign(global, { TextDecoder, TextEncoder });
 
 let originalLocalStorage: Storage;
 const localStorageMock: Storage = {
