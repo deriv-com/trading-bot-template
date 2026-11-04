@@ -183,17 +183,17 @@
         "braces": "^3.0.3",
         "@semantic-release/npm": "^13.1.2",
         "form-data": "4.0.6",
-        "undici": "^6.28.1",
+        "undici": "^6.29.1",
         "minimatch": "^10.0.3",
         "brace-expansion": "^5.0.12",
         "picomatch": "^4.0.4",
-        "fast-uri": "^3.1.7",
+        "fast-uri": "^3.1.9",
         "qs": "6.15.2",
         "ws": "8.21.0",
         "uuid": "^11.1.1",
         "shell-quote": "^1.11.0",
         "tar": "7.5.22",
-        "ip-address": "^10.7.2",
+        "ip-address": "^10.7.4",
         "@xmldom/xmldom": "0.8.15",
         "js-yaml": "4.3.2",
         "@istanbuljs/load-nyc-config": {
@@ -204,11 +204,12 @@
         },
         "websocket-driver": "0.7.5",
         "http-proxy-middleware": "2.0.10",
-        "launch-editor": "2.14.1",
+        "launch-editor": "2.14.2",
         "npm": "^11.21.1",
         "proxy-addr": "2.0.8",
         "handlebars": "^4.7.10",
         "compression": "^1.8.2",
-        "source-map-js": "^1.2.2"
+        "source-map-js": "^1.2.2",
+        "follow-redirects": "^1.16.1"
     }
 }
